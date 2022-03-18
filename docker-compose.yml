@@ -1,0 +1,25 @@
+version: "3"
+
+services: 
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes: 
+      - mongodb-data:/data/db
+  mongoadmin:
+    container_name: mongoadmin
+    image: mongo-express
+    ports: 
+      - 8081:8081
+    environment: 
+      ME_CONFIG_MONGODB_SERVER: mongodb
+    depends_on: 
+      - mongodb
+    links: 
+      - mongodb
+    logging: 
+      driver: none
+volumes: 
+  mongodb-data:
